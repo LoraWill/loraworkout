@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Williams Law Office color palette — navy, gold, cream, white */
     --navy:       #1B2A4A;
     --navy-dark:  #111D33;
     --navy-deep:  #0D1626;
@@ -16,16 +15,13 @@
     --gold:       #B89C5E;
     --gold-dim:   #8C7545;
     --gold-bright:#D4B97A;
-    --cream:      #F5F0E8;
-    --cream-dim:  #E8E0CE;
     --text:       #F0EBE0;
     --text-dim:   #8A9BBB;
-    --danger:     #C0392B;
     --green:      #27AE60;
-    --green-dark: #1E8449;
+    --green-bright:#2ECC71;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
 
   body {
     background: var(--navy-deep);
@@ -33,9 +29,10 @@
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    padding-bottom: 80px;
   }
 
-  /* HEADER */
+  /* ── HEADER ── */
   .header {
     background: var(--navy-dark);
     border-bottom: 2px solid var(--gold);
@@ -47,12 +44,7 @@
     top: 0;
     z-index: 100;
   }
-
-  .header-left {
-    display: flex;
-    flex-direction: column;
-  }
-
+  .header-left { display:flex; flex-direction:column; }
   .header-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 26px;
@@ -60,7 +52,6 @@
     letter-spacing: 2px;
     line-height: 1;
   }
-
   .header-date {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px;
@@ -69,7 +60,6 @@
     text-transform: uppercase;
     margin-top: 2px;
   }
-
   .hamburger {
     background: none;
     border: 1.5px solid var(--gold-dim);
@@ -83,18 +73,74 @@
   }
   .hamburger:hover { border-color: var(--gold); }
   .hamburger span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: var(--gold);
-    border-radius: 2px;
-    transition: background 0.2s;
+    display: block; width: 20px; height: 2px;
+    background: var(--gold); border-radius: 2px;
   }
 
-  /* CONTENT */
-  .tab-content { display: block; padding: 20px; }
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--navy-dark);
+    border-top: 2px solid var(--gold);
+    display: flex;
+    z-index: 100;
+  }
+  .nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 8px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    transition: color 0.2s;
+  }
+  .nav-btn .nav-icon { font-size: 20px; }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn.active .nav-icon { filter: drop-shadow(0 0 4px rgba(184,156,94,0.5)); }
 
-  /* WORKOUT TAB */
+  /* ── TAB PAGES ── */
+  .tab-page { display: none; padding: 20px; }
+  .tab-page.active { display: block; }
+
+  /* ── ROTATION BADGE ── */
+  .rotation-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,156,94,0.1);
+    border: 1px solid var(--gold-dim);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 18px;
+  }
+  .rotation-badge-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .rotation-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; } 50% { opacity:0.4; }
+  }
+
+  /* ── WORKOUT CARDS ── */
   .day-label {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 32px;
@@ -102,7 +148,6 @@
     letter-spacing: 3px;
     margin-bottom: 4px;
   }
-
   .day-sub {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 12px;
@@ -111,7 +156,6 @@
     text-transform: uppercase;
     margin-bottom: 20px;
   }
-
   .workout-card {
     background: var(--navy-mid);
     border: 1px solid var(--navy-light);
@@ -119,16 +163,11 @@
     margin-bottom: 16px;
     overflow: hidden;
   }
-
   .workout-card-header {
     background: var(--navy-light);
     padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
     border-bottom: 1px solid rgba(255,255,255,0.07);
   }
-
   .workout-card-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 14px;
@@ -137,383 +176,41 @@
     color: var(--gold);
     text-transform: uppercase;
   }
-
   .exercise-row {
     padding: 12px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .exercise-row:last-child { border-bottom: none; }
-
-  .exercise-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .exercise-name.main {
-    color: var(--gold);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-
-  .exercise-sets {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-    white-space: nowrap;
-    margin-left: 10px;
-  }
-
-  .cardio-card {
-    background: linear-gradient(135deg, rgba(184,156,94,0.12) 0%, rgba(184,156,94,0.06) 100%);
-    border: 1px solid var(--gold-dim);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .cardio-info { flex: 1; }
-
-  .cardio-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    color: var(--gold);
-    letter-spacing: 2px;
-  }
-
-  .cardio-detail {
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
-
-  .rest-day {
-    text-align: center;
-    padding: 40px 20px;
-  }
-
-  .rest-day .big {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    color: var(--gold);
-    letter-spacing: 4px;
-    line-height: 1;
-  }
-
-  .rest-day .sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-
-  /* QUICK SWAP BUTTONS */
-  .quick-swap-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .swap-btn {
-    flex: 1;
-    background: var(--navy-mid);
-    border: 1.5px solid var(--navy-light);
-    border-radius: 10px;
-    padding: 10px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  .swap-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(184,156,94,0.08);
-  }
-
-  .swap-btn.active {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(184,156,94,0.12);
-  }
-
-  .swap-btn .swap-icon {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 3px;
-  }
-
-  /* MENU OVERLAY */
-  .menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
-  }
-
-  .menu-overlay.open { opacity: 1; pointer-events: all; }
-
-  .menu-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 290px;
-    height: 100vh;
-    background: var(--navy-mid);
-    border-left: 2px solid var(--gold);
-    z-index: 201;
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .menu-drawer.open { transform: translateX(0); }
-
-  .menu-header {
-    padding: 20px;
-    border-bottom: 1px solid var(--navy-light);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .menu-header-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--gold);
-    letter-spacing: 2px;
-  }
-
-  .close-btn {
-    background: none;
-    border: 1px solid var(--navy-light);
-    border-radius: 6px;
-    color: var(--text-dim);
-    font-size: 18px;
-    padding: 4px 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .close-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-  .menu-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-  }
-
-  .menu-section-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    margin-top: 4px;
-  }
-
-  .week-day-btn {
-    width: 100%;
-    background: var(--navy-dark);
-    border: 1px solid var(--navy-light);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 11px 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 8px;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .week-day-btn:hover {
-    border-color: var(--gold-dim);
-    color: var(--gold);
-  }
-
-  .week-day-btn .day-tag {
-    font-size: 11px;
-    color: var(--text-dim);
-    font-weight: 400;
-    letter-spacing: 0.5px;
-  }
-
-  .week-day-btn.rest-tag .day-tag { color: #4a5f80; }
-
-  .menu-footer {
-    padding: 16px;
-    border-top: 1px solid var(--navy-light);
-  }
-
-  /* WORKOUT COMPLETE */
-  .workout-done-wrap {
-    padding: 20px 0 8px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .workout-done-btn {
-    background: rgba(39,174,96,0.15);
-    border: 2px solid #27AE60;
-    border-radius: 12px;
-    color: #2ECC71;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 2px;
-    padding: 14px 40px;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .workout-done-btn:hover { background: rgba(39,174,96,0.25); border-color: #2ECC71; }
-
-  .workout-complete-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(11, 24, 45, 0.97);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 150;
-    animation: fadeInOverlay 0.4s ease;
-  }
-
-  .workout-complete-overlay.show { display: flex; }
-
-  @keyframes fadeInOverlay {
-    from { opacity: 0; transform: scale(0.97); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  .complete-checkmark {
-    font-size: 110px;
-    color: #2ECC71;
-    line-height: 1;
-    animation: popIn 0.4s cubic-bezier(.4,0,.2,1);
-  }
-
-  @keyframes popIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-
-  .complete-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px;
-    color: #2ECC71;
-    letter-spacing: 4px;
-    margin-top: 10px;
-  }
-
-  .complete-sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    color: rgba(46,204,113,0.7);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 6px;
-  }
-
-  .undo-btn {
-    margin-top: 28px;
-    background: none;
-    border: 1px solid rgba(46,204,113,0.4);
-    border-radius: 8px;
-    color: rgba(46,204,113,0.7);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 8px 20px;
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .undo-btn:hover { border-color: #2ECC71; color: #2ECC71; }
-
-  #tab-workout {
-    position: relative;
-    min-height: 100vh;
-  }
-
-  .no-workout {
-    background: var(--navy-mid);
-    border: 1px solid var(--navy-light);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--text-dim);
-    text-align: center;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .slide-in { animation: slideIn 0.3s ease; }
-
-  /* WEIGHT LOG */
-  .exercise-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
   }
-
+  .exercise-row:last-child { border-bottom: none; }
   .exercise-row-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
   }
-
+  .exercise-name { font-size:14px; font-weight:600; color:var(--text); }
+  .exercise-name.main {
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; letter-spacing: 1px;
+  }
+  .exercise-sets {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; color: var(--text-dim);
+    letter-spacing: 1px; white-space: nowrap; margin-left: 10px;
+  }
   .weight-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-    padding-top: 8px;
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 8px; padding-top: 8px;
     border-top: 1px solid rgba(255,255,255,0.04);
   }
-
   .weight-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-size: 11px; letter-spacing: 1.5px;
+    color: var(--text-dim); text-transform: uppercase;
+    white-space: nowrap; flex-shrink: 0;
   }
-
   .weight-input {
     flex: 1;
     background: var(--navy-deep);
@@ -527,520 +224,786 @@
     transition: border-color 0.2s;
     min-width: 0;
   }
-
   .weight-input::placeholder { color: #4a5f80; }
   .weight-input:focus { border-color: var(--gold-dim); }
-
   .weight-save-btn {
     background: var(--navy-light);
     border: 1px solid var(--gold-dim);
     border-radius: 6px;
     color: var(--gold);
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 5px 12px;
-    cursor: pointer;
-    white-space: nowrap;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    padding: 5px 12px; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0;
     transition: background 0.2s, border-color 0.2s;
-    flex-shrink: 0;
   }
   .weight-save-btn:hover { background: rgba(184,156,94,0.15); border-color: var(--gold); }
-  .weight-save-btn.saved {
+  .weight-save-btn.saved { color:#2ECC71; border-color:#27AE60; background:rgba(39,174,96,0.1); }
+
+  .cardio-card {
+    background: linear-gradient(135deg,rgba(184,156,94,0.12),rgba(184,156,94,0.06));
+    border: 1px solid var(--gold-dim);
+    border-radius: 12px;
+    padding: 16px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .cardio-info { flex:1; }
+  .cardio-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; color: var(--gold); letter-spacing: 2px;
+  }
+  .cardio-detail { font-size:13px; color:var(--text-dim); margin-top:2px; }
+
+  /* ── SWAP BUTTONS ── */
+  .quick-swap-row { display:flex; gap:10px; margin-bottom:18px; }
+  .swap-btn {
+    flex: 1;
+    background: var(--navy-mid);
+    border: 1.5px solid var(--navy-light);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .swap-btn:hover { border-color:var(--gold); color:var(--gold); background:rgba(184,156,94,0.08); }
+  .swap-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(184,156,94,0.12); }
+  .swap-btn .swap-icon { display:block; font-size:18px; margin-bottom:3px; }
+
+  /* ── COMPLETE BUTTON ── */
+  .workout-done-wrap { padding: 20px 0 8px; display:flex; justify-content:center; }
+  .workout-done-btn {
+    background: rgba(39,174,96,0.15);
+    border: 2px solid #27AE60;
+    border-radius: 12px;
     color: #2ECC71;
-    border-color: #27AE60;
-    background: rgba(39,174,96,0.1);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 2px;
+    padding: 14px 40px;
+    cursor: pointer; width: 100%;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .workout-done-btn:hover { background:rgba(39,174,96,0.25); border-color:#2ECC71; }
+  .workout-done-btn.already-done {
+    background: rgba(39,174,96,0.08);
+    border-color: #1E8449;
+    color: #1E8449;
+    cursor: default;
   }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--navy-deep); }
-  ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+  /* ── COMPLETE OVERLAY ── */
+  .workout-complete-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(11,24,45,0.97);
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 150;
+    animation: fadeInOverlay 0.4s ease;
+  }
+  .workout-complete-overlay.show { display:flex; }
+  @keyframes fadeInOverlay {
+    from { opacity:0; transform:scale(0.97); }
+    to   { opacity:1; transform:scale(1); }
+  }
+  .complete-checkmark { font-size:110px; color:#2ECC71; line-height:1; animation:popIn 0.4s cubic-bezier(.4,0,.2,1); }
+  @keyframes popIn { from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
+  .complete-label { font-family:'Bebas Neue',sans-serif; font-size:36px; color:#2ECC71; letter-spacing:4px; margin-top:10px; }
+  .complete-sub { font-family:'Barlow Condensed',sans-serif; font-size:13px; color:rgba(46,204,113,0.7); letter-spacing:2px; text-transform:uppercase; margin-top:6px; }
+  .complete-next { font-family:'Barlow Condensed',sans-serif; font-size:15px; color:var(--gold); letter-spacing:1px; text-transform:uppercase; margin-top:20px; }
+  .undo-btn {
+    margin-top: 16px;
+    background: none;
+    border: 1px solid rgba(46,204,113,0.4);
+    border-radius: 8px;
+    color: rgba(46,204,113,0.7);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 20px; cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .undo-btn:hover { border-color:#2ECC71; color:#2ECC71; }
+
+  /* ── CALENDAR ── */
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; color: var(--gold); letter-spacing: 3px;
+  }
+  .cal-nav-btn {
+    background: var(--navy-mid);
+    border: 1px solid var(--navy-light);
+    border-radius: 8px;
+    color: var(--gold);
+    font-size: 18px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .cal-nav-btn:hover { border-color: var(--gold); }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+  .cal-dow {
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 1px;
+    color: var(--text-dim); text-transform: uppercase;
+    padding: 4px 0 8px;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    background: var(--navy-mid);
+    border: 1px solid var(--navy-light);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .cal-day.empty { background: transparent; border-color: transparent; }
+  .cal-day.today {
+    border-color: var(--gold-dim);
+    color: var(--text);
+  }
+  .cal-day.today .cal-day-num { color: var(--gold); }
+  .cal-day.done-upper {
+    background: rgba(43,84,148,0.35);
+    border-color: #4a7fc1;
+  }
+  .cal-day.done-lower {
+    background: rgba(143,100,43,0.3);
+    border-color: var(--gold-dim);
+  }
+  .cal-day-num { font-size: 13px; font-weight: 700; line-height: 1; }
+  .cal-day-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; letter-spacing: 0.5px;
+    font-weight: 700; text-transform: uppercase;
+    margin-top: 2px; line-height: 1;
+  }
+  .cal-day.done-upper .cal-day-badge { color: #7ab0f5; }
+  .cal-day.done-lower .cal-day-badge { color: var(--gold); }
+  .cal-checkmark {
+    position: absolute;
+    top: 2px; right: 4px;
+    font-size: 9px;
+    color: var(--green-bright);
+  }
+
+  /* cal legend */
+  .cal-legend {
+    display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .cal-legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .cal-legend-dot {
+    width: 12px; height: 12px; border-radius: 3px;
+  }
+  .dot-upper { background: rgba(43,84,148,0.6); border: 1px solid #4a7fc1; }
+  .dot-lower { background: rgba(143,100,43,0.5); border: 1px solid var(--gold-dim); }
+
+  /* cal stats */
+  .cal-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px; margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--navy-light);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; color: var(--gold); letter-spacing: 2px; line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 1px;
+    color: var(--text-dim); text-transform: uppercase; margin-top: 3px;
+  }
+
+  /* ── MENU DRAWER ── */
+  .menu-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,0.7);
+    z-index:200; opacity:0; pointer-events:none; transition:opacity 0.25s;
+  }
+  .menu-overlay.open { opacity:1; pointer-events:all; }
+  .menu-drawer {
+    position:fixed; top:0; right:0; width:290px; height:100vh;
+    background:var(--navy-mid); border-left:2px solid var(--gold);
+    z-index:201; transform:translateX(100%);
+    transition:transform 0.3s cubic-bezier(.4,0,.2,1);
+    display:flex; flex-direction:column;
+  }
+  .menu-drawer.open { transform:translateX(0); }
+  .menu-header {
+    padding:20px; border-bottom:1px solid var(--navy-light);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .menu-header-title { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--gold); letter-spacing:2px; }
+  .close-btn {
+    background:none; border:1px solid var(--navy-light); border-radius:6px;
+    color:var(--text-dim); font-size:18px; padding:4px 10px;
+    cursor:pointer; transition:all 0.2s;
+  }
+  .close-btn:hover { border-color:var(--gold); color:var(--gold); }
+  .menu-body { flex:1; overflow-y:auto; padding:16px; }
+  .menu-section-title {
+    font-family:'Barlow Condensed',sans-serif; font-size:11px;
+    letter-spacing:2px; color:var(--text-dim); text-transform:uppercase;
+    margin-bottom:10px; margin-top:4px;
+  }
+  .menu-item {
+    width:100%; background:var(--navy-dark); border:1px solid var(--navy-light);
+    border-radius:8px; color:var(--text);
+    font-family:'Barlow Condensed',sans-serif; font-size:14px;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    padding:11px 14px; cursor:pointer; transition:all 0.2s;
+    margin-bottom:8px; text-align:left;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .menu-item:hover { border-color:var(--gold-dim); color:var(--gold); }
+  .menu-item .tag { font-size:11px; color:var(--text-dim); font-weight:400; }
+  .menu-divider { border:none; border-top:1px solid var(--navy-light); margin:12px 0; }
+
+  @keyframes slideIn { from{opacity:0;transform:translateY(-8px);} to{opacity:1;transform:translateY(0);} }
+  .slide-in { animation: slideIn 0.3s ease; }
+
+  ::-webkit-scrollbar { width:5px; }
+  ::-webkit-scrollbar-track { background:var(--navy-deep); }
+  ::-webkit-scrollbar-thumb { background:var(--navy-light); border-radius:3px; }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-left">
     <div class="header-title">Lora's Workouts</div>
     <div class="header-date" id="headerDate"></div>
   </div>
-  <button class="hamburger" onclick="openMenu()" aria-label="Menu">
+  <button class="hamburger" onclick="openMenu()">
     <span></span><span></span><span></span>
   </button>
 </div>
 
 <!-- WORKOUT TAB -->
-<div class="tab-content" id="tab-workout">
+<div class="tab-page active" id="page-workout">
   <div id="workoutContent"></div>
   <div class="workout-done-wrap" id="workoutDoneWrap" style="display:none">
-    <button class="workout-done-btn" onclick="markWorkoutDone()">✓ Workout Complete</button>
+    <button class="workout-done-btn" id="doneBtn" onclick="markWorkoutDone()">✓ Workout Complete</button>
   </div>
 </div>
 
-<!-- WORKOUT COMPLETE OVERLAY -->
+<!-- CALENDAR TAB -->
+<div class="tab-page" id="page-calendar">
+  <div class="cal-stats" id="calStats"></div>
+  <div class="cal-legend">
+    <div class="cal-legend-item"><div class="cal-legend-dot dot-upper"></div>Upper</div>
+    <div class="cal-legend-item"><div class="cal-legend-dot dot-lower"></div>Lower</div>
+  </div>
+  <div class="cal-header">
+    <button class="cal-nav-btn" onclick="calPrev()">‹</button>
+    <div class="cal-title" id="calMonthTitle"></div>
+    <button class="cal-nav-btn" onclick="calNext()">›</button>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+</div>
+
+<!-- COMPLETE OVERLAY -->
 <div class="workout-complete-overlay" id="workoutCompleteOverlay">
   <div class="complete-checkmark">✓</div>
   <div class="complete-label">Workout Done!</div>
   <div class="complete-sub">Keep crushing it, Lora</div>
+  <div class="complete-next" id="completeNextLabel"></div>
   <button class="undo-btn" onclick="undoWorkoutDone()">Undo</button>
 </div>
 
-<!-- MENU OVERLAY -->
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" id="nav-workout" onclick="showTab('workout')">
+    <span class="nav-icon">💪</span>Today
+  </button>
+  <button class="nav-btn" id="nav-calendar" onclick="showTab('calendar')">
+    <span class="nav-icon">📅</span>Calendar
+  </button>
+</div>
+
+<!-- MENU DRAWER -->
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 <div class="menu-drawer" id="menuDrawer">
   <div class="menu-header">
-    <div class="menu-header-title">Week View</div>
+    <div class="menu-header-title">Options</div>
     <button class="close-btn" onclick="closeMenu()">✕</button>
   </div>
   <div class="menu-body">
-    <div class="menu-section-title">Jump to a day</div>
-    <button class="week-day-btn" onclick="previewDay(1); closeMenu()">
-      <span>Monday</span><span class="day-tag">Back / Upper</span>
+    <div class="menu-section-title">Rotation</div>
+    <button class="menu-item" onclick="resetRotation('upper'); closeMenu()">
+      <span>Reset → Upper Next</span><span class="tag">override</span>
     </button>
-    <button class="week-day-btn" onclick="previewDay(2); closeMenu()">
-      <span>Tuesday</span><span class="day-tag">Lower / Glutes</span>
+    <button class="menu-item" onclick="resetRotation('lower'); closeMenu()">
+      <span>Reset → Lower Next</span><span class="tag">override</span>
     </button>
-    <button class="week-day-btn rest-tag" onclick="previewDay(3); closeMenu()">
-      <span>Wednesday</span><span class="day-tag">Rest Day</span>
-    </button>
-    <button class="week-day-btn" onclick="previewDay(4); closeMenu()">
-      <span>Thursday</span><span class="day-tag">Upper / Chest</span>
-    </button>
-    <button class="week-day-btn" onclick="previewDay(5); closeMenu()">
-      <span>Friday</span><span class="day-tag">Lower / Glutes</span>
-    </button>
-    <button class="week-day-btn rest-tag" onclick="previewDay(6); closeMenu()">
-      <span>Saturday</span><span class="day-tag">Rest Day</span>
-    </button>
-    <button class="week-day-btn rest-tag" onclick="previewDay(0); closeMenu()">
-      <span>Sunday</span><span class="day-tag">Rest Day</span>
-    </button>
-  </div>
-  <div class="menu-footer">
-    <button class="week-day-btn" style="margin-bottom:0; border-color: var(--gold-dim); color: var(--gold);" onclick="goToToday(); closeMenu()">
-      <span>↩ Back to Today</span><span class="day-tag">reset view</span>
+    <hr class="menu-divider">
+    <div class="menu-section-title">View</div>
+    <button class="menu-item" onclick="showTab('calendar'); closeMenu()">
+      <span>📅 View Calendar</span>
     </button>
   </div>
 </div>
 
 <script>
-  // ─────────────────────────────────────────────────
-  //  WORKOUT DATA
-  // ─────────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  WORKOUT DATA
+// ═══════════════════════════════════════════════
 
-  const UPPER = {
-    label: "UPPER WORKOUT",
-    sub: "Back · Shoulders · Arms",
-    cardio: true,
-    exercises: [
-      { name: "Lat Pull Down", sets: "3 × 10", main: true },
-      { name: "Cable Row",     sets: "3 × 10" },
-      { name: "Shoulder Press",sets: "3 × 10" },
-      { name: "Lateral Raises",sets: "3 × 8"  },
-    ]
-  };
+const UPPER_EXERCISES = [
+  { name: "Lat Pull Down",  sets: "3 × 10", main: true },
+  { name: "Cable Row",      sets: "3 × 10" },
+  { name: "Shoulder Press", sets: "3 × 10" },
+  { name: "Lateral Raises", sets: "3 × 8"  },
+];
 
-  const LOWER_BASE = [
-    { name: "Hip Thrust",             sets: "3 × 8",         main: true },
-    { name: "Walking Weighted Lunges",sets: "3 × 10 each leg"            },
-    { name: "Leg Extensions",         sets: "3 × 10"                     },
-  ];
+const LOWER_EXERCISES = [
+  { name: "Hip Thrust",              sets: "3 × 8",          main: true },
+  { name: "Walking Weighted Lunges", sets: "3 × 10 each leg" },
+  { name: "Leg Extensions",          sets: "3 × 10" },
+  { name: "Leg Curl",                sets: "3 × 10" },
+];
 
-  const LOWER_FRIDAY = [
-    { name: "Hip Thrust",             sets: "3 × 8",         main: true },
-    { name: "Walking Weighted Lunges",sets: "3 × 10 each leg"            },
-    { name: "Leg Curl",               sets: "3 × 10"                     },
-  ];
+const WORKOUTS = {
+  upper: { label: "UPPER",  sub: "Back · Shoulders · Arms", exercises: UPPER_EXERCISES },
+  lower: { label: "LOWER",  sub: "Glutes · Legs",           exercises: LOWER_EXERCISES },
+};
 
-  const LOWER_FULL = [
-    { name: "Hip Thrust",             sets: "3 × 8",         main: true },
-    { name: "Walking Weighted Lunges",sets: "3 × 10 each leg"            },
-    { name: "Leg Extensions",         sets: "3 × 10"                     },
-    { name: "Leg Curl",               sets: "3 × 10"                     },
-  ];
+// ═══════════════════════════════════════════════
+//  INDEXEDDB
+// ═══════════════════════════════════════════════
 
-  const workouts = {
-    1: { // Monday
-      label: "MONDAY",
-      sub: "Back · Shoulders · Arms",
-      cardio: true,
-      exercises: UPPER.exercises,
-    },
-    2: { // Tuesday
-      label: "TUESDAY",
-      sub: "Lower · Glutes · Legs",
-      cardio: true,
-      exercises: LOWER_BASE,
-    },
-    3: { label: "WEDNESDAY", sub: "Rest Day", rest: true },
-    4: { // Thursday
-      label: "THURSDAY",
-      sub: "Upper · Chest · Arms",
-      cardio: true,
-      exercises: [
-        { name: "Dumbbell Chest Press", sets: "3 × 10", main: true },
-        { name: "Bicep Curls",          sets: "3 × 8"              },
-        { name: "Tricep Pushdown",      sets: "3 × 10"             },
-        { name: "Lateral Raises",       sets: "3 × 8"              },
-      ]
-    },
-    5: { // Friday
-      label: "FRIDAY",
-      sub: "Lower · Glutes · Legs",
-      cardio: true,
-      exercises: LOWER_FRIDAY,
-    },
-    6: { label: "SATURDAY", sub: "Rest Day", rest: true },
-    0: { label: "SUNDAY",   sub: "Rest Day", rest: true },
-  };
+const DB_NAME    = 'loraWorkoutsDB';
+const DB_VER     = 3;
+const DONE_STORE = 'workoutDone';   // { date, type:'upper'|'lower' }
+const WT_STORE   = 'weights';       // { exercise, weight }
+const ROT_STORE  = 'rotation';      // { id:'next', type }
+let db = null;
 
-  // ─────────────────────────────────────────────────
-  //  STATE
-  // ─────────────────────────────────────────────────
+function openDB() {
+  return new Promise((res, rej) => {
+    if (db) { res(db); return; }
+    const req = indexedDB.open(DB_NAME, DB_VER);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(DONE_STORE)) d.createObjectStore(DONE_STORE, { keyPath:'date' });
+      if (!d.objectStoreNames.contains(WT_STORE))   d.createObjectStore(WT_STORE,   { keyPath:'exercise' });
+      if (!d.objectStoreNames.contains(ROT_STORE))  d.createObjectStore(ROT_STORE,  { keyPath:'id' });
+    };
+    req.onsuccess = e => { db = e.target.result; res(db); };
+    req.onerror   = e => rej(e);
+  });
+}
 
-  let todayKey  = getTodayKey();
-  let previewDow = null; // null = use today
-  let activeSwap = null; // 'upper' | 'lower' | null
+function dbGet(store, key) {
+  return openDB().then(d => new Promise(res => {
+    const req = d.transaction(store,'readonly').objectStore(store).get(key);
+    req.onsuccess = e => res(e.target.result || null);
+    req.onerror   = () => res(null);
+  }));
+}
 
-  // ─────────────────────────────────────────────────
-  //  INDEXEDDB
-  // ─────────────────────────────────────────────────
+function dbPut(store, val) {
+  return openDB().then(d => new Promise((res, rej) => {
+    const tx = d.transaction(store,'readwrite');
+    tx.objectStore(store).put(val);
+    tx.oncomplete = () => res();
+    tx.onerror    = e => rej(e);
+  }));
+}
 
-  const DB_NAME    = 'loraWorkoutsDB';
-  const DB_VER     = 2;
-  const DONE_STORE = 'workoutDone';
-  const WT_STORE   = 'weights';
-  let db = null;
+function dbGetAll(store) {
+  return openDB().then(d => new Promise(res => {
+    const req = d.transaction(store,'readonly').objectStore(store).getAll();
+    req.onsuccess = e => res(e.target.result || []);
+    req.onerror   = () => res([]);
+  }));
+}
 
-  function openDB() {
-    return new Promise((resolve, reject) => {
-      if (db) { resolve(db); return; }
-      const req = indexedDB.open(DB_NAME, DB_VER);
-      req.onupgradeneeded = e => {
-        const d = e.target.result;
-        if (!d.objectStoreNames.contains(DONE_STORE))
-          d.createObjectStore(DONE_STORE, { keyPath: 'date' });
-        if (!d.objectStoreNames.contains(WT_STORE))
-          d.createObjectStore(WT_STORE, { keyPath: 'exercise' });
-      };
-      req.onsuccess = e => { db = e.target.result; resolve(db); };
-      req.onerror   = e => reject(e);
-    });
-  }
+function dbDelete(store, key) {
+  return openDB().then(d => new Promise((res, rej) => {
+    const tx = d.transaction(store,'readwrite');
+    tx.objectStore(store).delete(key);
+    tx.oncomplete = () => res();
+    tx.onerror    = e => rej(e);
+  }));
+}
 
-  function dbGetDone(date) {
-    return openDB().then(d => new Promise((resolve) => {
-      const tx  = d.transaction(DONE_STORE, 'readonly');
-      const req = tx.objectStore(DONE_STORE).get(date);
-      req.onsuccess = e => resolve(e.target.result ? e.target.result.done : false);
-      req.onerror   = () => resolve(false);
-    }));
-  }
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
 
-  function dbSetDone(date, done) {
-    return openDB().then(d => new Promise((resolve, reject) => {
-      const tx = d.transaction(DONE_STORE, 'readwrite');
-      tx.objectStore(DONE_STORE).put({ date, done });
-      tx.oncomplete = () => resolve();
-      tx.onerror    = e => reject(e);
-    }));
-  }
+let todayKey   = getTodayKey();
+let activeSwap = null; // 'upper'|'lower'|null  — temporary override for display only
 
-  function dbGetWeight(exercise) {
-    return openDB().then(d => new Promise((resolve) => {
-      const tx  = d.transaction(WT_STORE, 'readonly');
-      const req = tx.objectStore(WT_STORE).get(exercise);
-      req.onsuccess = e => resolve(e.target.result ? e.target.result.weight : '');
-      req.onerror   = () => resolve('');
-    }));
-  }
+// ═══════════════════════════════════════════════
+//  ROTATION LOGIC
+// ═══════════════════════════════════════════════
 
-  function dbSetWeight(exercise, weight) {
-    return openDB().then(d => new Promise((resolve, reject) => {
-      const tx = d.transaction(WT_STORE, 'readwrite');
-      tx.objectStore(WT_STORE).put({ exercise, weight });
-      tx.oncomplete = () => resolve();
-      tx.onerror    = e => reject(e);
-    }));
-  }
+// Returns 'upper' or 'lower' — what today's workout should be.
+// Rules:
+//   1. If today is already completed → show it as done (type from DB)
+//   2. Otherwise look at last completed workout — next is the opposite
+//   3. If never done anything → default 'upper'
+async function getTodayType() {
+  // Check if today is already logged
+  const todayRecord = await dbGet(DONE_STORE, todayKey);
+  if (todayRecord) return todayRecord.type;
 
-  function dbGetAllWeights() {
-    return openDB().then(d => new Promise((resolve) => {
-      const tx  = d.transaction(WT_STORE, 'readonly');
-      const req = tx.objectStore(WT_STORE).getAll();
-      req.onsuccess = e => {
-        const map = {};
-        (e.target.result || []).forEach(r => { map[r.exercise] = r.weight; });
-        resolve(map);
-      };
-      req.onerror = () => resolve({});
-    }));
-  }
+  // Check rotation override
+  const rotRecord = await dbGet(ROT_STORE, 'next');
+  if (rotRecord) return rotRecord.type;
 
-  // ─────────────────────────────────────────────────
-  //  HELPERS
-  // ─────────────────────────────────────────────────
+  // Find last completed workout date before today
+  const all = await dbGetAll(DONE_STORE);
+  if (all.length === 0) return 'upper'; // default start
 
-  function getTodayKey() {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  }
+  // Sort descending and grab latest
+  all.sort((a,b) => b.date.localeCompare(a.date));
+  const last = all[0];
+  return last.type === 'upper' ? 'lower' : 'upper';
+}
 
-  function setHeaderDate() {
-    const now  = new Date();
-    const opts = { weekday:'long', month:'long', day:'numeric', year:'numeric' };
-    document.getElementById('headerDate').textContent =
-      now.toLocaleDateString('en-US', opts).toUpperCase();
-  }
+async function resetRotation(type) {
+  // Clear any stored rotation override, next open will follow the rule
+  await dbPut(ROT_STORE, { id:'next', type });
+  activeSwap = null;
+  renderWorkout();
+}
 
-  // ─────────────────────────────────────────────────
-  //  QUICK-SWAP BUTTONS
-  // ─────────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════
 
-  function buildSwapButtons(dow) {
-    return `
-      <div class="quick-swap-row">
-        <button class="swap-btn${activeSwap === 'upper' ? ' active' : ''}"
-                onclick="setSwap('upper')" id="swapUpperBtn">
-          <span class="swap-icon">💪</span>
-          Upper Workout
-        </button>
-        <button class="swap-btn${activeSwap === 'lower' ? ' active' : ''}"
-                onclick="setSwap('lower')" id="swapLowerBtn">
-          <span class="swap-icon">🦵</span>
-          Lower Workout
-        </button>
+function getTodayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function dateKeyToDate(k) {
+  const [y,m,d] = k.split('-').map(Number);
+  return new Date(y, m-1, d);
+}
+
+function setHeaderDate() {
+  const opts = { weekday:'long', month:'long', day:'numeric', year:'numeric' };
+  document.getElementById('headerDate').textContent =
+    new Date().toLocaleDateString('en-US', opts).toUpperCase();
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ═══════════════════════════════════════════════
+//  RENDER WORKOUT
+// ═══════════════════════════════════════════════
+
+async function renderWorkout() {
+  const el       = document.getElementById('workoutContent');
+  const doneWrap = document.getElementById('workoutDoneWrap');
+  const overlay  = document.getElementById('workoutCompleteOverlay');
+
+  // Determine type to show
+  const todayType    = await getTodayType();
+  const displayType  = activeSwap || todayType;
+  const w            = WORKOUTS[displayType];
+
+  // Is today already completed?
+  const todayRecord  = await dbGet(DONE_STORE, todayKey);
+  const alreadyDone  = !!todayRecord;
+
+  // Load weights
+  let weights = {};
+  try {
+    const all = await dbGetAll(WT_STORE);
+    all.forEach(r => { weights[r.exercise] = r.weight; });
+  } catch {}
+
+  // ── Swap buttons ──
+  const swapHtml = `
+    <div class="quick-swap-row">
+      <button class="swap-btn${(activeSwap||todayType)==='upper'?' active':''}" onclick="setSwap('upper')">
+        <span class="swap-icon">💪</span>Upper Workout
+      </button>
+      <button class="swap-btn${(activeSwap||todayType)==='lower'?' active':''}" onclick="setSwap('lower')">
+        <span class="swap-icon">🦵</span>Lower Workout
+      </button>
+    </div>`;
+
+  // ── Rotation badge ──
+  const nextType  = displayType === 'upper' ? 'lower' : 'upper';
+  const badgeHtml = `
+    <div class="rotation-badge">
+      <div class="rotation-dot"></div>
+      <span class="rotation-badge-text">
+        ${alreadyDone ? 'Completed · Next up: ' + nextType : "Today's workout: " + displayType}
+      </span>
+    </div>`;
+
+  // ── Exercise rows ──
+  let exRows = '';
+  w.exercises.forEach(ex => {
+    const saved   = weights[ex.name] || '';
+    const inputId = 'wt-' + ex.name.replace(/\s+/g,'-').toLowerCase();
+    const btnId   = 'wtbtn-' + ex.name.replace(/\s+/g,'-').toLowerCase();
+    exRows += `
+      <div class="exercise-row">
+        <div class="exercise-row-top">
+          <div class="exercise-name${ex.main?' main':''}">${ex.name}${ex.main?' ★':''}</div>
+          <div class="exercise-sets">${ex.sets}</div>
+        </div>
+        <div class="weight-row">
+          <span class="weight-label">Last weight:</span>
+          <input class="weight-input" id="${inputId}" type="text" placeholder="e.g. 45 lbs"
+            value="${escHtml(saved)}"
+            onkeydown="if(event.key==='Enter') saveWeight('${escHtml(ex.name)}','${inputId}','${btnId}')"/>
+          <button class="weight-save-btn" id="${btnId}"
+            onclick="saveWeight('${escHtml(ex.name)}','${inputId}','${btnId}')">Save</button>
+        </div>
+      </div>`;
+  });
+
+  el.innerHTML = `
+    ${swapHtml}
+    ${badgeHtml}
+    <div class="day-label slide-in">${w.label}</div>
+    <div class="day-sub">${w.sub}</div>
+    <div class="workout-card">
+      <div class="workout-card-header"><span class="workout-card-title">Lifts</span></div>
+      ${exRows}
+    </div>
+    <div class="cardio-card">
+      <div class="cardio-info">
+        <div class="cardio-title">🚶 Treadmill Walk</div>
+        <div class="cardio-detail">20–30 minutes · steady pace</div>
       </div>
-    `;
+    </div>`;
+
+  // ── Done button ──
+  doneWrap.style.display = 'flex';
+  const doneBtn = document.getElementById('doneBtn');
+  if (alreadyDone) {
+    doneBtn.textContent = '✓ Already Completed Today';
+    doneBtn.classList.add('already-done');
+    doneBtn.onclick = null;
+    overlay.classList.remove('show');
+  } else {
+    doneBtn.textContent = '✓ Workout Complete';
+    doneBtn.classList.remove('already-done');
+    doneBtn.onclick = markWorkoutDone;
+    overlay.classList.remove('show');
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  SWAP (display only, doesn't affect rotation)
+// ═══════════════════════════════════════════════
+
+function setSwap(type) {
+  activeSwap = (activeSwap === type) ? null : type;
+  renderWorkout();
+}
+
+// ═══════════════════════════════════════════════
+//  MARK DONE / UNDO
+// ═══════════════════════════════════════════════
+
+async function markWorkoutDone() {
+  const displayType = activeSwap || (await getTodayType());
+  // Save completion with type
+  await dbPut(DONE_STORE, { date: todayKey, type: displayType });
+  // Clear rotation override so next day derives naturally
+  await dbDelete(ROT_STORE, 'next');
+
+  // Show overlay with next workout info
+  const nextType = displayType === 'upper' ? 'Lower' : 'Upper';
+  document.getElementById('completeNextLabel').textContent = `Next up: ${nextType} Workout`;
+  document.getElementById('workoutCompleteOverlay').classList.add('show');
+
+  renderWorkout();
+  if (document.getElementById('page-calendar').classList.contains('active')) renderCalendar();
+}
+
+async function undoWorkoutDone() {
+  await dbDelete(DONE_STORE, todayKey);
+  document.getElementById('workoutCompleteOverlay').classList.remove('show');
+  renderWorkout();
+  if (document.getElementById('page-calendar').classList.contains('active')) renderCalendar();
+}
+
+// ═══════════════════════════════════════════════
+//  WEIGHT SAVING
+// ═══════════════════════════════════════════════
+
+async function saveWeight(exercise, inputId, btnId) {
+  const input = document.getElementById(inputId);
+  const btn   = document.getElementById(btnId);
+  if (!input || !btn) return;
+  try {
+    await dbPut(WT_STORE, { exercise, weight: input.value.trim() });
+    btn.textContent = '✓ Saved';
+    btn.classList.add('saved');
+    setTimeout(() => { btn.textContent = 'Save'; btn.classList.remove('saved'); }, 1800);
+  } catch {
+    btn.textContent = 'Error';
+    setTimeout(() => { btn.textContent = 'Save'; }, 1800);
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  CALENDAR
+// ═══════════════════════════════════════════════
+
+let calYear  = new Date().getFullYear();
+let calMonth = new Date().getMonth(); // 0-indexed
+
+async function renderCalendar() {
+  const allDone = await dbGetAll(DONE_STORE);
+  const doneMap = {};
+  allDone.forEach(r => { doneMap[r.date] = r.type; });
+
+  // Stats
+  const totalUpper = allDone.filter(r => r.type === 'upper').length;
+  const totalLower = allDone.filter(r => r.type === 'lower').length;
+  const total      = allDone.length;
+
+  // Streak (consecutive days ending today or yesterday)
+  const sortedDates = Object.keys(doneMap).sort().reverse();
+  let streak = 0;
+  const today = new Date(); today.setHours(0,0,0,0);
+  for (let i = 0; i < sortedDates.length; i++) {
+    const d = dateKeyToDate(sortedDates[i]);
+    const diff = Math.round((today - d) / 86400000);
+    if (diff === i || diff - 1 === i) streak++;
+    else break;
   }
 
-  function setSwap(type) {
-    if (activeSwap === type) {
-      activeSwap = null; // toggle off
-    } else {
-      activeSwap = type;
-    }
-    renderWorkout();
+  document.getElementById('calStats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total</div></div>
+    <div class="stat-card"><div class="stat-num">${totalUpper}</div><div class="stat-label">Upper</div></div>
+    <div class="stat-card"><div class="stat-num">${totalLower}</div><div class="stat-label">Lower</div></div>`;
+
+  // Month grid
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calMonthTitle').textContent = `${MONTHS[calMonth]} ${calYear}`;
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const todayStr = getTodayKey();
+
+  const DOW_LABELS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let html = DOW_LABELS.map(d => `<div class="cal-dow">${d}</div>`).join('');
+
+  // Empty cells before first day
+  for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = key === todayStr;
+    const type    = doneMap[key];
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    if (type === 'upper') cls += ' done-upper';
+    if (type === 'lower') cls += ' done-lower';
+
+    const badge = type ? `<div class="cal-day-badge">${type === 'upper' ? 'UPR' : 'LWR'}</div>` : '';
+    const check = type ? `<span class="cal-checkmark">✓</span>` : '';
+
+    html += `<div class="${cls}">${check}<div class="cal-day-num">${d}</div>${badge}</div>`;
   }
 
-  // ─────────────────────────────────────────────────
-  //  RENDER WORKOUT
-  // ─────────────────────────────────────────────────
+  document.getElementById('calGrid').innerHTML = html;
+}
 
-  async function renderWorkout() {
-    const dow = previewDow !== null ? previewDow : new Date().getDay();
-    const el  = document.getElementById('workoutContent');
-    const doneWrap = document.getElementById('workoutDoneWrap');
-    const overlay  = document.getElementById('workoutCompleteOverlay');
+function calPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
 
-    const isToday = (previewDow === null);
+function calNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
 
-    // Determine what workout to show
-    let w;
-    if (activeSwap === 'upper') {
-      w = {
-        label: "UPPER WORKOUT",
-        sub: "Back · Shoulders · Arms (Quick Select)",
-        cardio: true,
-        exercises: UPPER.exercises,
-      };
-    } else if (activeSwap === 'lower') {
-      w = {
-        label: "LOWER WORKOUT",
-        sub: "Glutes · Legs (Quick Select)",
-        cardio: true,
-        exercises: LOWER_FULL,
-      };
-    } else {
-      w = workouts[dow];
-    }
+// ═══════════════════════════════════════════════
+//  TAB SWITCHING
+// ═══════════════════════════════════════════════
 
-    if (!w) { el.innerHTML = ''; return; }
+function showTab(name) {
+  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'calendar') renderCalendar();
+}
 
-    if (w.rest && !activeSwap) {
-      doneWrap.style.display = 'none';
-      overlay.classList.remove('show');
-      el.innerHTML = `
-        ${buildSwapButtons(dow)}
-        <div class="rest-day">
-          <div class="big">REST DAY</div>
-          <div class="sub">Recovery is part of the process</div>
-        </div>
-      `;
-      return;
-    }
+// ═══════════════════════════════════════════════
+//  MENU
+// ═══════════════════════════════════════════════
 
-    doneWrap.style.display = 'flex';
+function openMenu() {
+  document.getElementById('menuOverlay').classList.add('open');
+  document.getElementById('menuDrawer').classList.add('open');
+}
+function closeMenu() {
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.getElementById('menuDrawer').classList.remove('open');
+}
 
-    // Restore done state (only relevant when viewing today)
-    if (isToday) {
-      try {
-        const done = await dbGetDone(todayKey);
-        if (done) overlay.classList.add('show');
-        else overlay.classList.remove('show');
-      } catch {}
-    } else {
-      overlay.classList.remove('show');
-    }
+// ═══════════════════════════════════════════════
+//  MIDNIGHT RESET
+// ═══════════════════════════════════════════════
 
-    // Load all saved weights
-    let weights = {};
-    try { weights = await dbGetAllWeights(); } catch {}
-
-    let html = buildSwapButtons(dow);
-
-    if (previewDow !== null && previewDow !== new Date().getDay()) {
-      const dayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][previewDow];
-      html += `<div style="background:rgba(184,156,94,0.08);border:1px solid var(--gold-dim);border-radius:8px;padding:8px 14px;margin-bottom:14px;font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--gold-dim);letter-spacing:1px;text-transform:uppercase;">Previewing ${dayName}'s workout</div>`;
-    }
-
-    html += `
-      <div class="day-label slide-in">${w.label}</div>
-      <div class="day-sub">${w.sub}</div>
-    `;
-
-    // Lifts card
-    html += `<div class="workout-card"><div class="workout-card-header"><span class="workout-card-title">Lifts</span></div>`;
-    w.exercises.forEach(ex => {
-      const key = ex.name;
-      const saved = weights[key] || '';
-      const inputId = 'wt-' + key.replace(/\s+/g, '-').toLowerCase();
-      const btnId   = 'wtbtn-' + key.replace(/\s+/g, '-').toLowerCase();
-      html += `
-        <div class="exercise-row">
-          <div class="exercise-row-top">
-            <div class="exercise-name${ex.main ? ' main' : ''}">${ex.name}${ex.main ? ' ★' : ''}</div>
-            <div class="exercise-sets">${ex.sets}</div>
-          </div>
-          <div class="weight-row">
-            <span class="weight-label">Last weight:</span>
-            <input
-              class="weight-input"
-              id="${inputId}"
-              type="text"
-              placeholder="e.g. 45 lbs"
-              value="${escHtml(saved)}"
-              onkeydown="if(event.key==='Enter') saveWeight('${escHtml(key)}','${inputId}','${btnId}')"
-            />
-            <button
-              class="weight-save-btn"
-              id="${btnId}"
-              onclick="saveWeight('${escHtml(key)}','${inputId}','${btnId}')"
-            >Save</button>
-          </div>
-        </div>
-      `;
-    });
-    html += `</div>`;
-
-    // Cardio card
-    if (w.cardio) {
-      html += `
-        <div class="cardio-card">
-          <div class="cardio-info">
-            <div class="cardio-title">🚶 Treadmill Walk</div>
-            <div class="cardio-detail">20–30 minutes · steady pace</div>
-          </div>
-        </div>
-      `;
-    }
-
-    el.innerHTML = html;
-  }
-
-  // ─────────────────────────────────────────────────
-  //  WEIGHT SAVING
-  // ─────────────────────────────────────────────────
-
-  async function saveWeight(exercise, inputId, btnId) {
-    const input = document.getElementById(inputId);
-    const btn   = document.getElementById(btnId);
-    if (!input || !btn) return;
-    const val = input.value.trim();
-    try {
-      await dbSetWeight(exercise, val);
-      btn.textContent = '✓ Saved';
-      btn.classList.add('saved');
-      setTimeout(() => {
-        btn.textContent = 'Save';
-        btn.classList.remove('saved');
-      }, 1800);
-    } catch {
-      btn.textContent = 'Error';
-      setTimeout(() => { btn.textContent = 'Save'; }, 1800);
-    }
-  }
-
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-
-  // ─────────────────────────────────────────────────
-  //  ACTIONS
-  // ─────────────────────────────────────────────────
-
-  async function markWorkoutDone() {
-    document.getElementById('workoutCompleteOverlay').classList.add('show');
-    try { await dbSetDone(todayKey, true); } catch {}
-  }
-
-  async function undoWorkoutDone() {
-    document.getElementById('workoutCompleteOverlay').classList.remove('show');
-    try { await dbSetDone(todayKey, false); } catch {}
-  }
-
-  function previewDay(dow) {
-    previewDow = dow;
+let lastKey = todayKey;
+setInterval(() => {
+  const k = getTodayKey();
+  if (k !== lastKey) {
+    lastKey = k; todayKey = k;
     activeSwap = null;
     renderWorkout();
   }
+}, 60000);
 
-  function goToToday() {
-    previewDow = null;
-    activeSwap = null;
-    renderWorkout();
-  }
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
 
-  // ─────────────────────────────────────────────────
-  //  MENU
-  // ─────────────────────────────────────────────────
-
-  function openMenu() {
-    document.getElementById('menuOverlay').classList.add('open');
-    document.getElementById('menuDrawer').classList.add('open');
-  }
-
-  function closeMenu() {
-    document.getElementById('menuOverlay').classList.remove('open');
-    document.getElementById('menuDrawer').classList.remove('open');
-  }
-
-  // ─────────────────────────────────────────────────
-  //  MIDNIGHT RESET
-  // ─────────────────────────────────────────────────
-
-  let lastCheckedKey = todayKey;
-  setInterval(() => {
-    const currentKey = getTodayKey();
-    if (currentKey !== lastCheckedKey) {
-      lastCheckedKey = currentKey;
-      todayKey       = currentKey;
-      if (previewDow === null) renderWorkout();
-    }
-  }, 60000);
-
-  // ─────────────────────────────────────────────────
-  //  INIT
-  // ─────────────────────────────────────────────────
-
-  function init() {
-    setHeaderDate();
-    renderWorkout();
-  }
-
-  init();
+setHeaderDate();
+renderWorkout();
 </script>
 </body>
 </html>
